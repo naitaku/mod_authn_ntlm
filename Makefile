@@ -8,11 +8,10 @@
 #PLATSDKDIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A
 #EXTRAARCH=.
 
-APACHEDIR=E:\ntlm\src\httpd-2.4.4
-MSVCDIR=C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC
-PLATSDKDIR=C:\Program Files (x86)\Microsoft SDKs\Windows\v8.1A
+APACHEDIR=C:\Apache24
+MSVCDIR=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC
+# PLATSDKDIR=C:\Program Files (x86)\Windows Kits\8.1
 EXTRAARCH=.
-
 
 #Example for Apache Lounge VC10 Win32
 #APACHEDIR=C:\Apache24
@@ -32,7 +31,7 @@ LIBAPRUTIL=libaprutil-1.lib
 AP_INCLUDES=\
 	/I "$(APACHEDIR)\include" /I "$(APACHEDIR)\srclib\apr\include"\
 	/I "$(APACHEDIR)\srclib\apr-util\include" /I "$(APACHEDIR)\os\win32"
-	
+
 AP_LIBPATH=\
 	/LIBPATH:"$(APACHEDIR)\Release"\
 	/LIBPATH:"$(APACHEDIR)\srclib\apr\Release"\
@@ -70,7 +69,9 @@ LDFLAGS=$(LDFLAGS) /release /opt:ref /opt:icf,16
 DLL_BASE_ADDRESS=0x6ED00000
 
 OBJECTS=$(OBJDIR)\mod_ntlm.obj $(OBJDIR)\mod_ntlm_authentication.obj\
-	$(OBJDIR)\mod_ntlm_authorization.obj $(OBJDIR)\mod_ntlm_interface.obj
+	$(OBJDIR)\mod_ntlm_authorization.obj\
+	$(OBJDIR)\mod_ntlm_interface.obj\
+	$(OBJDIR)\mod_ntlm_activeds.obj
 
 OUTFILE=$(BINDIR)\mod_authn_ntlm.so
 MAPFILE=$(BINDIR)\mod_authn_ntlm.map
@@ -90,9 +91,12 @@ $(OUTFILE): dirs $(OBJECTS)
 {$(SRCDIR)}.c{$(OBJDIR)}.obj:
 	$(CC) $(CFLAGS) $(INCLUDES) $(DEFINES) /c %CD%\$< /Fo$@
 
+{$(SRCDIR)}.cpp{$(OBJDIR)}.obj:
+	$(CC) $(CFLAGS) /EHsc $(INCLUDES) $(DEFINES) /c %CD%\$< /Fo$@
+
 {$(SRCDIR)}.rc{$(OBJDIR)}.res:
 	$(RC) $(RCFLAGS) $(INCLUDES) $(DEFINES) /fo $@ %CD%\$<
-	
+
 dirs:
 	@if not exist $(OBJDIR) mkdir $(OBJDIR)
 	@if not exist $(BINDIR) mkdir $(BINDIR)

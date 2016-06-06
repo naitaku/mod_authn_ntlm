@@ -469,6 +469,8 @@ static int set_connection_details(sspi_auth_ctx *ctx)
 			return HTTP_INTERNAL_SERVER_ERROR;
 		}
 
+		SetRemoteUserAttribute(ctx);
+
 		if ((ss =
 		     sspiModuleInfo.functable->RevertSecurityContext(&ctx->scr->
 								     server_context))

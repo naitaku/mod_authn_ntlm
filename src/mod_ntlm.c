@@ -85,6 +85,10 @@ static const command_rec sspi_cmds[] = {
 		      "set to 'lower' if you want the username and domain to be lowercase, "
 		      "set to 'upper' if you want the username and domain to be uppercase, "
 		      "if not specified, username and domain case conversion is disabled"),
+	AP_INIT_TAKE1("NTLMRemoteUserAttribute", ap_set_string_slot,
+		    (void *) APR_OFFSETOF(sspi_config_rec, sspi_remoteuserattribute),
+		    OR_AUTHCFG,
+		    ""),
 	AP_INIT_FLAG("NTLMBasicPreferred", ap_set_flag_slot,
 		     (void *)APR_OFFSETOF(sspi_config_rec, sspi_basicpreferred),
 		     OR_AUTHCFG,

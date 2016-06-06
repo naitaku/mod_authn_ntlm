@@ -118,6 +118,7 @@ typedef struct sspi_config_struct {
 	char			*sspi_default_domain;
 	size_t			sspi_default_domain_len;
 	char			*sspi_usernamecase;
+	char			*sspi_remoteuserattribute;
 	unsigned int		sspi_per_request_auth;
 	unsigned int		sspi_chain_auth;
 	char			*sspi_packages;
@@ -167,6 +168,7 @@ void note_sspi_auth_failure(request_rec *r);
 void note_sspi_auth_failure_old(request_rec *);
 char *uuencode_binary(apr_pool_t *, const char *, int);
 unsigned char *uudecode_binary(apr_pool_t *, const char *, int *);
+void SetRemoteUserAttribute(sspi_auth_ctx* ctx);
 
 /* Global variables */
 extern sspi_module_rec sspiModuleInfo;

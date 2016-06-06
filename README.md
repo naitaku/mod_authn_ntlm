@@ -39,6 +39,7 @@ Notice:
 - `NTLMDefaultDomain` => set to the domain you want users authenticated against for cleartext authentication - if not specified, the local machine, then all trusted domains are checked
 - `NTLMOmitDomain` => set to 'on' if you want the usernames to have the domain set to 'on' if you want the usernames to have the domain
 - `NTLMUsernameCase` => set to 'lower' if you want the username and domain to be lowercase, set to 'upper' if you want the username and domain to be uppercase, if not specified, username and domain case conversion is disabled
+- `NTLMRemoteUserAttribute` => use the value of the attribute of the authenticate user to set the REMOTE_USER environment variable.
 - `NTLMBasicPreferred` => set to 'on' if you want basic authentication to be the higher priority
 - `NTLMMSIE3Hack` => set to 'on' if you expect MSIE 3 clients to be using this server
 - `NTLMPerRequestAuth` => set to 'on' if you want authorization per request instead of per connection
